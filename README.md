@@ -4,7 +4,7 @@ A demo Chef cookbook that sets up Apache httpd on a CentOS machine.
 
 The cookbook includes three recipes:
 - `recipe[httpd::default]` &mdash; installs and starts only the core `httpd` stuff. No HTTPS will be available.
-- `recipe[httpd::ssl]` &mdash; meant to be used after the `default` recipe. Installs `mod_ssl`, places a certificate from a data bag item and a private key from a Chef Vault item. By default it retrieves the certficate from an item named `#{node.name}` (server hostname) inside the `pki` data bag. It fetches the private key from a Chef Vault item named `#{node.name}-vault` (server hostname with `-vault` appended) from the same data bag.
+- `recipe[httpd::ssl]` &mdash; meant to be used after the `default` recipe. Installs `mod_ssl`, places a certificate from a data bag item and a private key from a Chef Vault item. By default it retrieves the certficate from an item named `#{node.name}` (server hostname) inside the `certificates` data bag. It fetches the private key from a Chef Vault item named `#{node.name}` (server hostname) from the data bag `private_keys`.
 - `recipe[httpd::remove]` &mdash; ensures that everything created by `default` and `ssl` recipes are removed.
 
 ## Test Kitchen / InSpec tests
