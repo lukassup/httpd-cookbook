@@ -8,19 +8,35 @@ provisioner:
   # For example:
   #   always_update_cookbooks: <%= !ENV['CI'] %>
   always_update_cookbooks: true
+  client_rb:
+    node_name: testkitchen  # set node.name attribute
 
 verifier:
   name: inspec
 
 platforms:
-  - name: ubuntu-16.04
-  - name: centos-7.3
+  - name: centos/7
+    driver:
+      provider: libvirt  # change to virtualbox if needed
+      # required for InSpec port checks
+      provision: true
+      vagrantfiles:
+        - Vagrantfile.extra.rb
 
 suites:
   - name: default
     run_list:
       - recipe[httpd::default]
+  - name: https
+    run_list:
+      - recipe[httpd::default]
+      - recipe[httpd::ssl]
     verifier:
       inspec_tests:
-        - test/smoke/default
-    attributes:
+        # include default tests
+        - test/integration/default
+  - name: remove
+    run_list:
+      - recipe[httpd::default]
+      - recipe[httpd::ssl]
+      - recipe[httpd::remove]

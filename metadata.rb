@@ -1,22 +1,14 @@
 name 'httpd'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
-license 'All Rights Reserved'
+maintainer 'Lukas Šupienis'
+maintainer_email 'lukassup@yahoo.com'
+license 'MIT'
 description 'Installs/Configures httpd'
 long_description 'Installs/Configures httpd'
-version '0.3.2'
 chef_version '>= 12.1' if respond_to?(:chef_version)
+supports 'redhat'
+issues_url 'https://github.com/lukassup/httpd-cookbook/issues'
+source_url 'https://github.com/lukassup/httpd-cookbook'
 
 depends 'chef-vault', '~>3.0'
 
-# The `issues_url` points to the location where issues for this cookbook are
-# tracked.  A `View Issues` link will be displayed on this cookbook's page when
-# uploaded to a Supermarket.
-#
-# issues_url 'https://github.com/<insert_org_here>/httpd/issues'
-
-# The `source_url` points to the development repository for this cookbook.  A
-# `View Source` link will be displayed on this cookbook's page when uploaded to
-# a Supermarket.
-#
-# source_url 'https://github.com/<insert_org_here>/httpd'
+version '0.4.0'
