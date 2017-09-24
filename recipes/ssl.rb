@@ -29,8 +29,7 @@ end
 # if any of the keypair parts are empty or Chef Vault item cannot be read
 # generate a self-signed keypair
 if key.nil? or cert.nil? or key.match?(/invalid_password/i)
-  Chef::Log.error('Unable to retrieve either of the keypair items')
-  Chef::Log.info('Generating a self-signed keypair')
+  Chef::Log.error('Unable to retrieve either of the keypair items. Generating a self-signed keypair.')
   bash 'generate self-signed keypair' do
     code <<-EOH
     openssl req \
@@ -47,7 +46,7 @@ if key.nil? or cert.nil? or key.match?(/invalid_password/i)
     notifies :reload, 'service[httpd]', :delayed
   end
 else
-  Chef::Log.info('Both keypair items found')
+  Chef::Log.info('Both keypair items found.')
 
   file '/etc/pki/tls/private/localhost.key' do
     content key
