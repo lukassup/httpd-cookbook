@@ -19,8 +19,9 @@ describe file('/etc/pki/tls/private/localhost.key') do
   it { should exist }
   it { should be_file }
   it { should_not be_readable.by('others') }
-  its('content') { should match '-----BEGIN RSA PRIVATE KEY-----' }
-  its('content') { should match '-----END RSA PRIVATE KEY-----' }
+  # match both PCKS#1 and newer PCKS#8 formats (without RSA)
+  its('content') { should match /-----BEGIN( RSA)? PRIVATE KEY-----/ }
+  its('content') { should match /-----END( RSA)? PRIVATE KEY-----/ }
 end
 
 describe file('/etc/pki/tls/certs/localhost.crt') do
